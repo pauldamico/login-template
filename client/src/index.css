@@ -11,3 +11,20 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.auth-form{
+  border-radius: 10px;
+  display: flex;
+  padding: 5%;
+  padding-top: 2%;
+  flex-direction: column;
+align-items: center;
+background-color: grey;
+width: fit-content;
+}
+.auth-div{
+  margin-top: 2%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

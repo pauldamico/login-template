@@ -6,30 +6,40 @@ const User = require("../models/user.js");
 const passwordLength = 8
 
 authRouter.post("/signup", (req, res, next) => {
-  User.findOne({ username: req.body.username.toLowerCase() }, (err, foundUser) => {
-    console.log(req.body.password.length);
-
-    //Password must be longer then 8 characters
-    if (req.body.password.length <= passwordLength) {
-      return next (new Error("Password must be longer the 8 characters"));
+  User.findOne({ username: req.body.username.toLowerCase()}, (err, foundUser) => {
+    if(err){
+      res.status(500)
+      return next(err)
     }
-    //Username already exists
-    if (foundUser) {
+    
+    if (foundUser) {      
       res.status(403);
       return next(new Error("Username already exists"));
     }
+
+    // Password must be longer then 8 characters
+    // if(req.body.password.length <= 0){
+    //   res.status(403)
+    //   return next(new Error("Password needs to be longer then 8 characters"))
+    // }
+
+
+ 
     const newUser = new User(req.body);
-    newUser.save((err, newUserInfo) => {
-      if (err) {
+    newUser.save((err, newUserInfo) => {    
+      if (err) {       
         res.status(500);
         return next(err);
       }
-      const token = jwt.sign(newUserInfo.removePassword(), process.env.SECRET);
-
+      const token = jwt.sign(newUserInfo.removePassword(), process.env.SECRET);     
       res.send({ user: newUserInfo.removePassword(), token });
     });
+
+
   });
 });
+
+
 
 authRouter.post("/login", (req, res, next) => {
 User.findOne({username:req.body.username.toLowerCase()}, (err, foundUser)=>{
