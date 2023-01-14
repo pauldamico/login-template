@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SnapShot of AuthForm renders correctly 1`] = `
+<div
+  className="auth-div"
+>
+  <form
+    className="auth-form"
+    onSubmit={[Function]}
+  >
+    <label>
+      Username 
+    </label>
+    <input
+      data-testid="username-input"
+      name="username"
+      onChange={[Function]}
+      type="text"
+    />
+    <label>
+      Password 
+    </label>
+    <input
+      name="password"
+      onChange={[Function]}
+      type="text"
+    />
+    <button>
+      Sign Up
+    </button>
+    <button
+      onClick={[Function]}
+      type="button"
+    >
+      Back
+    </button>
+  </form>
+</div>
+`;

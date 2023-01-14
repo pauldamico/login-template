@@ -6,6 +6,7 @@ const User = require("../models/user.js");
 const passwordLength = 8
 
 authRouter.post("/signup", (req, res, next) => {
+  console.log(req.body.username)
   User.findOne({ username: req.body.username.toLowerCase()}, (err, foundUser) => {
     if(err){
       res.status(500)
@@ -16,13 +17,6 @@ authRouter.post("/signup", (req, res, next) => {
       res.status(403);
       return next(new Error("Username already exists"));
     }
-
-    // Password must be longer then 8 characters
-    // if(req.body.password.length <= 0){
-    //   res.status(403)
-    //   return next(new Error("Password needs to be longer then 8 characters"))
-    // }
-
 
  
     const newUser = new User(req.body);
@@ -42,9 +36,10 @@ authRouter.post("/signup", (req, res, next) => {
 
 
 authRouter.post("/login", (req, res, next) => {
-User.findOne({username:req.body.username.toLowerCase()}, (err, foundUser)=>{
+User.findOne({username:req.body.username}, (err, foundUser)=>{
  
   if(!foundUser){
+  console.log(req)
      res.status(403)
      return next(new Error("Username or password is incorrect"))
   }
@@ -58,7 +53,7 @@ foundUser.checkPassword(req.body.password, (err, isMatch)=>{
     
   //if username is correct but the password does match
 if(!isMatch){
- 
+
 res.status(403)
 return next(new Error("Username or password is incorrect"))
 }
