@@ -4,7 +4,7 @@ import AuthForm from "./AuthForm";
 export default function UserAuth() {
   const [loginToggle, setLoginToggle] = useState(false);
   const [signUpToggle, setSignUpToggle] = useState(false);
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user"))||{ username: {}, token: "" });
+  const [currentLogin, setCurrentLogin] = useState(JSON.parse(localStorage.getItem("user"))||{ username: {}, token: "" });
   const [error, setError] = useState("");
 
   function loginToggler() {
@@ -25,10 +25,11 @@ export default function UserAuth() {
       .then((res) => {
         localStorage.setItem("user", JSON.stringify(res.data))
         console.log(res)
-        setUser(prev=>res.data)
+        setCurrentLogin(prev=>res.data)
+        setLoginToggle(false)
       })     
   
-      .then(res=>user.username && alert("logged in"))
+      .then(res=>currentLogin.user.username && alert("logged in"))
       .catch((err) => setError(err.response.data.errMsg));
   }
   function signUp(userInfo) {
@@ -37,20 +38,21 @@ export default function UserAuth() {
       .then((res) => {
         localStorage.setItem("user", JSON.stringify(res.data))
         console.log(res)
-        setUser(prev=>res.data)
+        setCurrentLogin(prev=>res.data)
       })       
-      .then(res=>user.username && alert("logged in"))
+      .then(res=>currentLogin.user.username && alert("logged in"))
       .catch((err) => setError(err.response.data.errMsg));
-     
+      setSignUpToggle(false)
   }
 
   return (
     <div>
+      {currentLogin.token && `Logged in as ${currentLogin.user.username}`}
       <div>
-        {!signUpToggle && !loginToggle && !user.token && (
+        {!currentLogin.token && (
           <button onClick={loginToggler}>Login</button>
         )}
-        {!signUpToggle && !loginToggle && !user.token && (
+        {!currentLogin.token && (
           <button onClick={signUpToggler}>Sign Up</button>
         )}
         {loginToggle && (
