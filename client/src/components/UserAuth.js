@@ -21,17 +21,24 @@ export default function UserAuth() {
   }
   function login(userInfo) {
     axios
-      .post("/login", {username:userInfo.username.toLowerCase(), password:userInfo.password})
-      .then((res) => localStorage.setItem("user", JSON.stringify(res.data)))      
-      .then((res) => setUser(prev=>res.data))
+      .post("/login", {username:userInfo.username, password:userInfo.password})
+      .then((res) => {
+        localStorage.setItem("user", JSON.stringify(res.data))
+        console.log(res)
+        setUser(prev=>res.data)
+      })     
+  
       .then(res=>user.username && alert("logged in"))
       .catch((err) => setError(err.response.data.errMsg));
   }
   function signUp(userInfo) {
     axios
-      .post("/signUp", {username:userInfo.username.toLowerCase(), password:userInfo.password})
-      .then((res) => localStorage.setItem("user", JSON.stringify(res.data)))      
-      .then((res) => setUser(prev=>res.data))
+      .post("/signUp", {username:userInfo.username, password:userInfo.password})
+      .then((res) => {
+        localStorage.setItem("user", JSON.stringify(res.data))
+        console.log(res)
+        setUser(prev=>res.data)
+      })       
       .then(res=>user.username && alert("logged in"))
       .catch((err) => setError(err.response.data.errMsg));
      
