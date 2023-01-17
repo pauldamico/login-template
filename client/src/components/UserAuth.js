@@ -1,11 +1,19 @@
 import React, { useState } from "react";
 import axios from "axios";
 import AuthForm from "./AuthForm";
+import AuthCloudLogin from "./AuthCloudLogin";
+import AuthCloudProfile from "./AuthCloudProfile";
+import AuthCloudLogout from "./AuthCloudLogout";
+
 export default function UserAuth() {
   const [loginToggle, setLoginToggle] = useState(false);
   const [signUpToggle, setSignUpToggle] = useState(false);
   const [currentLogin, setCurrentLogin] = useState(JSON.parse(localStorage.getItem("user"))||{ username: {}, token: "" });
   const [error, setError] = useState("");
+
+
+
+
 
   function loginToggler() {
     setLoginToggle(!loginToggle);
@@ -47,6 +55,7 @@ export default function UserAuth() {
 
   return (
     <div>
+     
       {currentLogin.token && `Logged in as ${currentLogin.user.username}`}
       <div>
         {!currentLogin.token && (
@@ -74,6 +83,9 @@ export default function UserAuth() {
           />
         )}
       </div>
+      <AuthCloudLogin/>
+      <AuthCloudLogout/>
+      <AuthCloudProfile/>
     </div>
   );
 }

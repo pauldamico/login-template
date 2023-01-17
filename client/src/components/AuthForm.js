@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 
+
 export default function AuthForm(props) {
   const {clearError, error, loginToggle, authenticateUser, loginToggler } = props;
   const [userInfo, setUserInfo] = useState({ username: "", password: "" });
