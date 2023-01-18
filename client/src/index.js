@@ -9,7 +9,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Auth0Provider
     domain="dev-0zd4zxu226vwide7.us.auth0.com"
-    clientId="Kk9dYDOT9Jo7hgQOZiZrzecoBTMDOpvg"
+    clientId="Xhh9DuE3b9cse3PpAnqfy7d4SeC7WVjI"
     redirectUri="http://localhost:3000"
   >
   <React.StrictMode>
